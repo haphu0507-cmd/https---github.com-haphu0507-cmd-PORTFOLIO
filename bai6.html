@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 6: Ứng dụng Trí tuệ Nhân tạo có Trách nhiệm và Đạo đức trong Học tập và Nghiên cứu Học thuật</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Định nghĩa bảng màu Maybach Luxury hệ Dark Mode từ Bài 2 */
+        :root {
+            --maybach-dark: #0b0f19;          
+            --maybach-card: #111827;          
+            --box-bg: #1f2937;                 
+            --maybach-blue: #38bdf8;          
+            --text-main: #ffffff;              
+            --text-sub: #94a3b8;               
+            --accent-green: #34d399;           
+            --accent-orange: #f59e0b;
+            --accent-red: #f87171;
+            --border-bright: rgba(255, 255, 255, 0.15); 
+            --word-color: #2b579a;              
+        }
+
+        body { 
+            background: #070a12; 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .exercise-card {
+            background: var(--maybach-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 45px;
+            max-width: 1200px; 
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .content-section-box {
+            background: var(--box-bg);
+            border: 1px solid var(--border-bright);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        /* ==================== CẤU TRÚC SƠ ĐỒ NỐI CYBER CHUẨN ==================== */
+        .cyber-mindmap-wrapper {
+            background: #0b0f19;
+            border-radius: 16px;
+            padding: 50px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+        }
+
+        .cyber-side-nodes {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            width: 40%;
+            position: relative;
+            z-index: 5;
+        }
+
+        .cyber-center-hub {
+            width: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cyber-circle-node {
+            background: #0f172a;
+            border: 2px solid #38bdf8;
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.25), inset 0 0 15px rgba(56, 189, 248, 0.15);
+            box-sizing: border-box;
+        }
+
+        .cyber-circle-node h4 {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        .cyber-circle-node p {
+            margin: 4px 0 0 0;
+            font-size: 0.6rem;
+            color: #38bdf8;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .cyber-card-node {
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-card-node:hover {
+            transform: translateY(-2px);
+            border-color: rgba(56, 189, 248, 0.25);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .cyber-card-node h5 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cyber-card-node p {
+            margin: 0;
+            font-size: 0.82rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .border-orange { border-left: 4px solid var(--accent-orange); }
+        .border-orange h5 { color: var(--accent-orange); }
+
+        .border-blue { border-left: 4px solid var(--maybach-blue); }
+        .border-blue h5 { color: var(--maybach-blue); }
+
+        .border-green { border-left: 4px solid var(--accent-green); }
+        .border-green h5 { color: var(--accent-green); }
+
+        /* ĐƯỜNG NỐI CYBER PHÁT SÁNG NEO CỐ ĐỊNH */
+        .nodes-left .cyber-card-node::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -40px;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(56,189,248,0.4) 0%, rgba(56,189,248,0.05) 100%);
+        }
+
+        .nodes-right .cyber-card-node::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -40px;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(56,189,248,0.05) 0%, rgba(56,189,248,0.4) 100%);
+        }
+
+        .nodes-left .cyber-card-node:first-child::after { transform: rotate(15deg); transform-origin: left; width: 45px; }
+        .nodes-left .cyber-card-node:last-child::after { transform: rotate(-15deg); transform-origin: left; width: 45px; }
+        .nodes-right .cyber-card-node:first-child::after { transform: rotate(-15deg); transform-origin: right; width: 45px; }
+        .nodes-right .cyber-card-node:last-child::after { transform: rotate(15deg); transform-origin: right; width: 45px; }
+
+        /* ==================== CẤU TRÚC INFOGRAPHIC ĐỒNG HÀNH (PHẦN IV) ==================== */
+        .handshake-container {
+            display: flex;
+            background: #090e1a;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 20px;
+            margin-top: 25px;
+            position: relative;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .handshake-half {
+            width: 50%;
+            padding: 40px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        /* Nửa Trái - Con người */
+        .half-human {
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.05) 0%, rgba(0,0,0,0) 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Nửa Phải - AI */
+        .half-ai {
+            background: linear-gradient(225deg, rgba(56, 189, 248, 0.05) 0%, rgba(0,0,0,0) 100%);
+            text-align: right;
+        }
+
+        /* Điểm liên kết bắt tay trung tâm */
+        .handshake-core-joint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: #070a12;
+            border: 2px dashed rgba(56, 189, 248, 0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+        }
+
+        .handshake-icon-glow {
+            width: 76px;
+            height: 76px;
+            background: linear-gradient(135deg, #0284c7 0%, #34d399 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+            color: #ffffff;
+            font-size: 1.8rem;
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.96); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
+            100% { transform: scale(1.04); box-shadow: 0 0 30px rgba(52, 211, 153, 0.6); }
+        }
+
+        .partner-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .half-human .partner-title { color: var(--accent-green); }
+        .half-ai .partner-title { color: var(--maybach-blue); justify-content: flex-end; }
+
+        .partner-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .partner-list li {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            display: flex;
+            gap: 12px;
+        }
+        .half-human .partner-list li { text-align: left; }
+        .half-ai .partner-list li { text-align: right; flex-direction: row-reverse; }
+
+        .partner-list li i {
+            margin-top: 4px;
+            font-size: 1rem;
+        }
+        .half-human .partner-list li i { color: var(--accent-green); }
+        .half-ai .partner-list li i { color: var(--maybach-blue); }
+
+        .btn-luxury {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #111827;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-luxury:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-word-download {
+            background: var(--word-color);
+            border: 1px solid #1a3a6c;
+        }
+
+        .btn-word-download:hover {
+            background: #3b6ea5;
+            border-color: #4f87c3;
+            box-shadow: 0 0 20px rgba(43, 87, 154, 0.5);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(11, 24, 43, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        .logo span { color: var(--maybach-blue); }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0; padding: 0;
+        }
+        .nav-link {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+
+        @media (max-width: 1024px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .cyber-mindmap-wrapper { flex-direction: column; gap: 30px; padding: 30px 15px; }
+            .cyber-side-nodes { width: 100%; }
+            .cyber-center-hub { width: 100%; order: -1; }
+            .cyber-card-node::after { display: none !important; }
+            .handshake-container { flex-direction: column; }
+            .handshake-half { width: 100%; padding: 30px 20px; }
+            .half-human { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+            .half-ai { text-align: left; }
+            .half-ai .partner-title { justify-content: flex-start; }
+            .half-ai .partner-list li { text-align: left; flex-direction: row; }
+            .handshake-core-joint { top: auto; bottom: calc(50% - 50px); transform: translate(-50%, 50%); display: none; } /* Ẩn nút trên mobile để tăng trải nghiệm đọc */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-background-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=2564&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+    <div class="luxury-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(7, 10, 18, 0.95) 100%);"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Phu's <span>Portfolio</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Giới thiệu</a></li>
+                <li><a href="duanthuchanh.html" class="nav-link active">Dự Án Thực Hành ▾</a></li>
+                <li><a href="tongket.html" class="nav-link">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px; margin-bottom: 60px; padding: 0 20px;">
+        <div class="exercise-card">
+            
+            <div class="exercise-header" style="margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
+                <span style="color: var(--maybach-blue); font-weight: 700; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase;">Cybernetic Academic Report</span>
+                <h2 style="font-size: 1.65rem; margin: 8px 0 0 0; font-weight: 600; color: #ffffff; line-height: 1.4;">
+                    Ứng dụng Trí tuệ Nhân tạo có Trách nhiệm và Đạo đức trong Học tập và Nghiên cứu Học thuật
+                </h2>
+            </div>
+
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-university" style="color: var(--maybach-blue);"></i> PHẦN I: Nghiên cứu Chính sách của Trường Đại học Công nghệ (VNU-UET)</h3>
+                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-top: 0;">
+                    Trường Đại học Công nghệ (VNU-UET) luôn tiên phong trong việc tiếp cận và ứng dụng các công nghệ mới vào giảng dạy và nghiên cứu khoa học. Trong bối cảnh Trí tuệ nhân tạo tạo sinh (Generative AI) bùng nổ, Nhà trường đã ban hành hướng dẫn khung mang tính định hướng chiến lược. Hướng dẫn này không cấm đoán cực đoan mà tập trung vào việc quản lý rủi ro và phát huy tối đa giá trị hỗ trợ của công nghệ dựa trên ba nguyên tắc cốt lõi: <b>Minh bạch thông tin, Trách nhiệm giải trình và Bảo vệ liêm chính học thuật</b>. Sinh viên và nghiên cứu sinh tại UET được phép sử dụng AI như công cụ hỗ trợ tư duy, tìm kiếm tài liệu, nhưng phải tuân thủ nghiêm ngặt quy định:
+                </p>
+                <div class="info-grid" style="margin-top: 15px; margin-bottom: 15px;">
+                    <div style="background: rgba(248, 113, 113, 0.05); border: 1px solid rgba(248, 113, 113, 0.2); padding: 15px; border-radius: 10px;">
+                        <strong style="color: var(--accent-red); display: block; margin-bottom: 6px;"><i class="fas fa-ban"></i> Ranh giới đỏ nghiêm cấm 01</strong>
+                        <span style="font-size: 0.9rem; color: #cbd5e1;">Sử dụng AI để tạo ra toàn bộ hoặc phần lớn nội dung của luận văn, khóa luận, bài tập lớn rồi nộp dưới tên mình mà không qua xử lý.</span>
+                    </div>
+                    <div style="background: rgba(248, 113, 113, 0.05); border: 1px solid rgba(248, 113, 113, 0.2); padding: 15px; border-radius: 10px;">
+                        <strong style="color: var(--accent-red); display: block; margin-bottom: 6px;"><i class="fas fa-ban"></i> Ranh giới đỏ nghiêm cấm 02</strong>
+                        <span style="font-size: 0.9rem; color: #cbd5e1;">Sử dụng dữ liệu giả lập do AI tự sinh (AI hallucination) trong các báo cáo thực nghiệm công nghệ kỹ thuật mà không có kiểm chứng thực tế.</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 10px; border-left: 3px solid var(--maybach-blue);">
+                    <b>So sánh đối chiếu quốc tế & Nhận định:</b> Chính sách của UET tương đồng với xu hướng "tích hợp có kiểm soát" toàn cầu. 
+                    Ví dụ, <b>Viện Công nghệ Massachusetts (MIT)</b> phân cấp theo từng môn (giảng viên quyết định từ cấm, hạn chế đến dùng toàn bộ). 
+                    Trong khi đó, <b>Đại học Oxford</b> nhấn mạnh chứng minh năng lực độc lập; sinh viên phải sẵn sàng giải trình trực tiếp về quy trình tư duy nếu kết quả có dấu hiệu AI can thiệp quá sâu. Hệ thống kiểm tra như Turnitin quét AI tại UET được áp dụng rất nghiêm ngặt.
+                </p>
+            </div>
+
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-balance-scale" style="color: var(--maybach-blue);"></i> PHẦN II: Phân tích Chuyên sâu các Vấn đề Đạo đức Học thuật</h3>
+                <div class="info-grid">
+                    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h4 style="margin-top: 0; color: var(--accent-red); font-size: 1.05rem;"><i class="fas fa-lock"></i> 1. Ranh giới & Quyền sở hữu trí tuệ (SHTT)</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.5; color: #cbd5e1; margin-bottom: 10px;">
+                            Ranh giới giữa hỗ trợ hợp lý và gian lận nằm ở tính <b>"sở hữu tri thức"</b>. Dùng AI để tóm tắt tài liệu, gợi ý dàn ý, hay gỡ lỗi (debug) SQL phức tạp là hợp lý. Nhưng yêu cầu AI giải trọn vẹn bài toán hay viết toàn bộ module rồi nộp bài mà không hiểu logic đằng sau là gian lận, vì nó thay thế hoàn toàn quá trình tư duy.
+                        </p>
+                        <p style="font-size: 0.9rem; line-height: 1.5; color: #cbd5e1; margin-bottom: 0;">
+                            <b>Bẫy SHTT:</b> AI huấn luyện dựa trên internet công cộng, có thể xuất ra đoạn code dính bản quyền nguồn mở (GNU GPL). Khi không khai báo trích dẫn AI, người học vi phạm nghiêm trọng liêm chính học thuật.
+                        </p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h4 style="margin-top: 0; color: var(--accent-orange); font-size: 1.05rem;"><i class="fas fa-chart-line"></i> 2. Tác động đến Kỹ năng & Năng lực</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.5; color: #cbd5e1; margin-bottom: 10px;">
+                            <strong style="color: var(--accent-green);">(+) Tích cực:</strong> AI đóng vai trò như một người gia sư cá nhân hóa 1-1, giúp sinh viên nhanh chóng vượt qua các "điểm nghẽn" kiến thức phức tạp kỹ thuật (ví dụ: giải thích ma trận Hessian hay cơ chế Push/Merge của Git) và tối ưu mở rộng không gian tìm tòi độc lập.
+                        </p>
+                        <p style="font-size: 0.9rem; line-height: 1.5; color: #cbd5e1; margin-bottom: 0;">
+                            <strong style="color: var(--accent-red);">(-) Tiêu cực:</strong> Việc lạm dụng lấy đáp án mì ăn liền thay vì làm chủ tư duy (Problem-solving) sẽ làm thui chột năng lực độc lập giải quyết bài toán cốt lõi. Về lâu dài, kỹ năng tự nghiên cứu sẽ bị mài mòn nghiêm trọng.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-project-diagram" style="color: var(--accent-green);"></i> PHẦN III: Xây dựng Bộ Nguyên tắc Cá nhân khi sử dụng AI</h3>
+                
+                <div class="cyber-mindmap-wrapper">
+                    
+                    <div class="cyber-side-nodes nodes-left">
+                        <div class="cyber-card-node border-orange">
+                            <h5><i class="fas fa-user-check"></i> 1. Làm chủ Tư duy</h5>
+                            <p><b>Human-in-the-loop:</b> Chỉ sử dụng AI để lên ý tưởng (brainstorming), lập dàn ý hoặc đối chiếu kết quả. Luôn tự viết bản nháp đầu tiên.</p>
+                        </div>
+                        
+                        <div class="cyber-card-node border-green">
+                            <h5><i class="fas fa-check-double"></i> 3. Kiểm chứng Độc lập</h5>
+                            <p><b>Triangulation:</b> Không bao giờ tin tưởng tuyệt đối vào thông tin tri thức AI cấp. Luôn chủ động đối chiếu chéo lại bằng tài liệu chính thống.</p>
+                        </div>
+
+                        <div class="cyber-card-node border-blue">
+                            <h5><i class="fas fa-brain"></i> 5. Tập trung Phát triển Lõi</h5>
+                            <p><b>Skill-first:</b> Đối với kiến thức nền tảng mang tính chất xây dựng năng lực tư duy lâu dài, luôn ưu tiên tư duy độc lập tự thân.</p>
+                        </div>
+                    </div>
+
+                    <div class="cyber-center-hub">
+                        <div class="cyber-circle-node">
+                            <i class="fas fa-shield-halved" style="color: #38bdf8; font-size: 1.4rem; margin-bottom: 5px;"></i>
+                            <h4>6 NGUYÊN TẮC</h4>
+                            <p>Ứng dụng AI</p>
+                        </div>
+                    </div>
+
+                    <div class="cyber-side-nodes nodes-right">
+                        <div class="cyber-card-node border-blue">
+                            <h5><i class="fas fa-eye"></i> 2. Minh bạch Tuyệt đối</h5>
+                            <p><b>Full Disclosure:</b> Khai báo chi tiết tỷ lệ đóng góp của công cụ trong báo cáo đồ án (AI hỗ trợ cấu trúc 30% | Người học xử lý 70%).</p>
+                        </div>
+
+                        <div class="cyber-card-node border-orange">
+                            <h5><i class="fas fa-user-shield"></i> 4. Bảo mật Dữ liệu</h5>
+                            <p><b>Data Ethics:</b> Nghiêm cấm hành vi sao chép mã nguồn chứa thông tin bảo mật, mật khẩu kết nối hoặc mã nguồn nhạy cảm dự án lên AI công cộng.</p>
+                        </div>
+
+                        <div class="cyber-card-node border-green">
+                            <h5><i class="fas fa-share-nodes"></i> 6. Đóng góp Cộng đồng</h5>
+                            <p><b>Constructive Sharing:</b> Tích cực chia sẻ các chuỗi câu lệnh (prompt) học thuật tối ưu hiệu quả và đúng chuẩn mực để cùng xây dựng môi trường văn minh.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="content-section-box" style="margin-bottom: 0;">
+                <h3 class="section-title"><i class="fas fa-handshake" style="color: var(--maybach-blue);"></i> PHẦN IV: Đồng hành Trí tuệ - Con người và AI </h3>
+                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-top: 0; margin-bottom: 10px;">
+                    Mô hình hóa mối quan hệ cộng sinh bền vững: Sự kết hợp hoàn hảo giữa năng lực kiểm soát đạo đức của con người và sức mạnh xử lý dữ liệu vượt trội từ Trí tuệ nhân tạo.
+                </p>
+
+                <div class="handshake-container">
+                    
+                    <div class="handshake-core-joint">
+                        <div class="handshake-icon-glow">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+
+                    <div class="handshake-half half-human">
+                        <div class="partner-title">
+                            <i class="fas fa-user-alt"></i> CON NGƯỜI - CHỦ THỂ TƯ DUY
+                        </div>
+                        <ul class="partner-list">
+                            <li>
+                                <i class="fas fa-balance-scale-right"></i>
+                                <span><b>Làm chủ đạo đức:</b> Giữ vững cán cân liêm chính học thuật, đưa ra quyết định tối cao và chịu trách nhiệm pháp lý.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-lightbulb"></i>
+                                <span><b>Sáng tạo & Phản biện:</b> Đặt ra câu hỏi, giả thuyết nghiên cứu mới và phản biện lỗi ảo giác của mô hình AI.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-heart"></i>
+                                <span><b>Thấu cảm thế giới thực:</b> Đánh giá tầm tác động thực tế của nghiên cứu công nghệ tới đời sống xã hội.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="handshake-half half-ai">
+                        <div class="partner-title">
+                            TRÍ TUỆ NHÂN TẠO - CÔNG CỤ TRỢ LỰC <i class="fas fa-robot"></i>
+                        </div>
+                        <ul class="partner-list">
+                            <li>
+                                <i class="fas fa-bolt"></i>
+                                <span><b>Tối ưu hiệu suất:</b> Thu thập, xử lý, tóm tắt hàng nghìn tài liệu dữ liệu lớn (Big Data) trong vài giây.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-code"></i>
+                                <span><b>Trợ lý kỹ thuật:</b> Hỗ trợ tìm lỗi logic mã nguồn (debug), gợi ý cấu trúc thuật toán và sửa lỗi cú pháp.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-chart-pie"></i>
+                                <span><b>Cá nhân hóa tri thức:</b> Đóng vai trò gia sư tự động hóa, giải thích đa chiều mọi khái niệm kỹ thuật phức tạp.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                <a href="duanthuchanh.html" class="btn-luxury">
+                    <i class="fas fa-chevron-left" style="font-size: 0.8rem;"></i> Danh sách dự án
+                </a>
+                <a href="https://docs.google.com/document/d/1BAaLMbj2Y05oxXfpBZtveTGf7NzrlEjZ/edit" target="_blank" class="btn-luxury btn-word-download">
+                    <i class="fas fa-file-word" style="font-size: 1.1rem;"></i> Tải báo cáo đầy đủ (.docx)
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

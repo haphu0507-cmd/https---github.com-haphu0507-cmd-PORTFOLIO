@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3: Thực Nghiệm 3 Tác Vụ Với Kỹ Nghệ Prompt Engineering</title>
+    <!-- Nhúng Font Awesome trực tiếp để đảm bảo hiển thị Icon không bị lỗi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Hệ màu Maybach Luxury & Cyber Technology */
+        :root {
+            --maybach-dark: #0b0f19;           
+            --maybach-card: #111827;           
+            --box-bg: #1f2937;                 
+            --maybach-blue: #38bdf8;           
+            --text-main: #ffffff;              
+            --text-sub: #94a3b8;               
+            --accent-green: #34d399;           
+            --accent-purple: #a855f7;
+            --border-bright: rgba(255, 255, 255, 0.12); 
+            --word-color: #2b579a;              
+        }
+
+        body { 
+            background: #070a12; 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Khung bo ngoài nội dung chính */
+        .exercise-card {
+            background: var(--maybach-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 45px;
+            max-width: 1050px; 
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Khung nội dung lớn */
+        .content-section-box {
+            background: var(--box-bg);
+            border: 1px solid var(--border-bright);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        /* --- SƠ ĐỒ VÒNG TRÒN NGUYÊN TẮC CỐT LÕI --- */
+        .circle-diagram-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+            position: relative;
+            min-height: 420px;
+        }
+
+        .diagram-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Tâm hệ thống */
+        .center-core {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+            border: 2px dashed rgba(56, 189, 248, 0.4);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 5;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.25), inset 0 0 15px rgba(56, 189, 248, 0.1);
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+
+        .center-core span {
+            font-size: 0.8rem;
+            color: var(--maybach-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .center-core h4 {
+            margin: 4px 0 0 0;
+            font-size: 1.05rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Đường quỹ đạo */
+        .orbit-line {
+            position: absolute;
+            width: 290px;
+            height: 290px;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Vị trí 5 khối bao quanh tâm */
+        .framework-node-satellite {
+            position: absolute;
+            width: 115px;
+            height: 115px;
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 3;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .node-pos-1 { top: -15px; left: calc(50% - 57.5px); }
+        .node-pos-2 { top: 105px; right: -25px; }
+        .node-pos-3 { bottom: 20px; right: 25px; }
+        .node-pos-4 { bottom: 20px; left: 25px; }
+        .node-pos-5 { top: 105px; left: -25px; }
+
+        .framework-node-satellite:hover {
+            border-color: var(--maybach-blue);
+            background: #111827;
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+        }
+
+        .framework-node-satellite:hover .node-icon-circle {
+            background: var(--maybach-blue);
+            color: #000000;
+            box-shadow: 0 0 15px var(--maybach-blue);
+        }
+
+        .node-icon-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.08);
+            color: var(--maybach-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .node-title-circle {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .node-desc-circle {
+            font-size: 0.65rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1px;
+        }
+
+        /* --- BẢNG MA TRẬN TÁC VỤ --- */
+        .matrix-table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            table-layout: fixed;
+        }
+
+        .matrix-table th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--maybach-blue);
+            text-align: left;
+            padding: 14px 18px;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .matrix-table td {
+            padding: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            vertical-align: top;
+            line-height: 1.6;
+            word-wrap: break-word;     
+            white-space: normal;       
+        }
+
+        .matrix-table tr:hover td {
+            background: rgba(255, 255, 255, 0.015);
+            color: #ffffff;
+        }
+
+        .badge-task {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--accent-purple);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            margin-bottom: 8px;
+        }
+
+        .task-subtext {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        /* --- HỆ THỐNG NHẬN XÉT (Đã fix lỗi đè chữ) --- */
+        .review-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .review-item {
+            position: relative;
+            padding-left: 40px; 
+            margin-bottom: 20px;
+            line-height: 1.65;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            display: block; 
+        }
+
+        .review-item > i.fa-check-circle {
+            position: absolute;
+            left: 5px;
+            top: 3px;
+            color: var(--accent-green);
+            font-size: 1.1rem;
+            line-height: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Nút điều hướng */
+        .btn-luxury {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #111827;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-luxury:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-word-download {
+            background: var(--word-color);
+            border: 1px solid #1a3a6c;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .btn-word-download:hover {
+            background: #3b6ea5;
+            border-color: #4f87c3;
+            box-shadow: 0 0 20px rgba(43, 87, 154, 0.5);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(56, 189, 248, 0.2), inset 0 0 15px rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.4); }
+            50% { box-shadow: 0 0 45px rgba(56, 189, 248, 0.4), inset 0 0 25px rgba(56, 189, 248, 0.2); border-color: var(--maybach-blue); }
+        }
+
+        @media (max-width: 768px) {
+            .circle-diagram-wrapper { min-height: auto; padding: 20px 0; }
+            .diagram-container { width: 100%; height: auto; display: flex; flex-direction: column; gap: 15px; }
+            .center-core { position: relative; width: 100%; height: auto; border-radius: 12px; padding: 15px 0; top: 0; left: 0; }
+            .orbit-line { display: none; }
+            .framework-node-satellite { position: relative; width: 100%; height: auto; border-radius: 12px; flex-direction: row; justify-content: flex-start; padding: 15px 20px; gap: 15px; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important; text-align: left; }
+            .framework-node-satellite:hover { transform: translateY(-2px); }
+            .node-icon-circle { margin-bottom: 0; }
+            .matrix-table { table-layout: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ảnh và lớp phủ nền -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop'); background-size: cover; background-position: center; filter: brightness(0.35);"></div>
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(7, 10, 18, 0.95) 100%);"></div>
+
+    <!-- Thanh Điều Hướng (Navbar) -->
+    <nav class="navbar" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: rgba(7, 10, 18, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);">
+        <div class="nav-container" style="max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 1.2rem;">Phu's <span style="color: var(--maybach-blue);">Portfolio</span></a>
+            <ul class="nav-menu" style="list-style: none; display: flex; gap: 25px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="color: var(--text-sub); text-decoration: none; font-size: 0.95rem;">Giới thiệu</a></li>
+                <li><a href="duanthuchanh.html" style="color: #fff; text-decoration: none; font-size: 0.95rem; font-weight: 600;">Dự Án Thực Hành</a></li>
+                <li><a href="tongket.html" style="color: var(--text-sub); text-decoration: none; font-size: 0.95rem;">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Nội dung chính -->
+    <div class="container" style="margin-top: 110px; margin-bottom: 60px; padding: 0 20px;">
+        <div class="exercise-card">
+            
+            <!-- TIÊU ĐỀ CHÍNH: Đã đồng bộ chuẩn theo ma trận thực nghiệm -->
+            <div class="exercise-header" style="margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
+                <span style="color: var(--maybach-blue); font-weight: 700; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase;">Lab Practice 03</span>
+                <h2 style="font-size: 2rem; margin: 8px 0 0 0; font-weight: 600; letter-spacing: -0.5px; color: #ffffff;">
+                    Bài 3: Nghiên cứu Kỹ nghệ Câu lệnh qua 3 Tác vụ thực nghiệm Công nghệ
+                </h2>
+            </div>
+
+            <!-- KHỐI 1: MỤC TIÊU ĐA TÁC VỤ -->
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-bullseye" style="color: var(--accent-green);"></i> Mục tiêu thực nghiệm</h3>
+                <p style="color: #cbd5e1; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+                    Ứng dụng linh hoạt các phương pháp luận thiết kế câu lệnh chuyên sâu nhằm tối ưu hóa năng lực xử lý thông tin của LLM đối với ba phân nhánh công nghệ phức tạp bao gồm: Kiến trúc bảo mật hệ thống mạng IoT, Cơ chế đồng thuận Blockchain và Khung đạo đức thuật toán trí tuệ nhân tạo.
+                </p>
+            </div>
+
+            <!-- KHỐI 2: SƠ ĐỒ VÒNG TRÒN NGUYÊN TẮC CỐT LÕI -->
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-cubes" style="color: var(--maybach-blue);"></i> Kỹ nghệ 5 Nguyên tắc vàng (Framework)</h3>
+                
+                <div class="circle-diagram-wrapper">
+                    <div class="diagram-container">
+                        
+                        <!-- Lõi trung tâm -->
+                        <div class="center-core">
+                            <span>Nguyên Tắc</span>
+                            <h4>CỐT LÕI</h4>
+                        </div>
+
+                        <!-- Vòng quỹ đạo phát sáng -->
+                        <div class="orbit-line"></div>
+
+                        <!-- Khối 1: Vai trò -->
+                        <div class="framework-node-satellite node-pos-1">
+                            <div class="node-icon-circle"><i class="fas fa-user-tag"></i></div>
+                            <div class="node-title-circle">Vai trò</div>
+                            <div class="node-desc-circle">Persona</div>
+                        </div>
+
+                        <!-- Khối 2: Ngữ cảnh -->
+                        <div class="framework-node-satellite node-pos-2">
+                            <div class="node-icon-circle"><i class="fas fa-crosshairs"></i></div>
+                            <div class="node-title-circle">Ngữ cảnh</div>
+                            <div class="node-desc-circle">Context</div>
+                        </div>
+
+                        <!-- Khối 3: Nhiệm vụ -->
+                        <div class="framework-node-satellite node-pos-3">
+                            <div class="node-icon-circle"><i class="fas fa-tasks"></i></div>
+                            <div class="node-title-circle">Nhiệm vụ</div>
+                            <div class="node-desc-circle">Task</div>
+                        </div>
+
+                        <!-- Khối 4: Định dạng -->
+                        <div class="framework-node-satellite node-pos-4">
+                            <div class="node-icon-circle"><i class="fas fa-align-left"></i></div>
+                            <div class="node-title-circle">Định dạng</div>
+                            <div class="node-desc-circle">Format</div>
+                        </div>
+
+                        <!-- Khối 5: Khung tư duy -->
+                        <div class="framework-node-satellite node-pos-5">
+                            <div class="node-icon-circle"><i class="fas fa-brain"></i></div>
+                            <div class="node-title-circle">Tư duy</div>
+                            <div class="node-desc-circle">Framework</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- KHỐI 3: MA TRẬN TÁC VỤ THỰC NGHIỆM (Khớp 100% theo image_d96635.png) -->
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-layer-group" style="color: var(--accent-purple);"></i> Ma trận 3 Tác vụ thực nghiệm</h3>
+                
+                <div class="matrix-table-container">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 28%;">Tác Vụ Thực Hiện</th>
+                                <th style="width: 44%;">Chiến Lược Kỹ Nghệ Prompt</th>
+                                <th style="width: 28%;">Mục Tiêu & Thách Thức Đối Phó</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="badge-task">Tác vụ 1: Tóm tắt</span>
+                                    <div class="task-subtext">Kiến trúc & Bảo mật IoT</div>
+                                </td>
+                                <td>Sử dụng kỹ thuật <b>Role Prompting</b> (Chuyên gia Pentest), ép thuật toán thực hiện theo chuỗi logic: <i>Giao thức → Đánh giá lỗ hổng → Khuyến nghị bảo mật</i> dạng Markdown.</td>
+                                <td><b>Nén tri thức:</b> Tránh rủi ro bị "bình quân hóa nội dung", ép AI bóc tách chính xác lỗ hổng bảo mật đặc thù của từng tầng trong cấu trúc 4 tầng IoT.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge-task">Tác vụ 2: Giải thích</span>
+                                    <div class="task-subtext">Proof of Stake (Blockchain)</div>
+                                </td>
+                                <td>Ứng dụng <b>Phương pháp Feynman</b> truyền tải tri thức cho trẻ 10 tuổi kết hợp phép ẩn dụ đời sống ("Xổ số hũ đậu") để giải thích cơ chế Proof of Stake và hình phạt Slashing.</td>
+                                <td><b>Xây dựng Mô hình tâm trí:</b> Vượt qua "rào cản thuật ngữ", loại bỏ sự phức tạp toán học khô khan mà vẫn giữ đúng bản chất phi tập trung của hệ thống.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge-task">Tác vụ 3: Tạo câu hỏi</span>
+                                    <div class="task-subtext">Định kiến thuật toán AI</div>
+                                </td>
+                                <td>Đóng vai <i>Giám khảo AI Ethics</i>, ứng dụng <b>Thang đo Bloom</b> cấp độ Phân tích dựa trên Case Study thực tế về Mã bưu điện (Proxy Variable) để thử thách tư duy phản biện.</td>
+                                <td><b>Kích hoạt Truy hồi tích cực:</b> Triệt tiêu các loại câu hỏi "bề mặt", ép AI thiết lập các phương án nhiễu lắt léo và bẫy logic đa chiều.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- KHỐI 4: NHẬN XÉT VÀ ĐÁNH GIÁ -->
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-star" style="color: #f59e0b;"></i> Nhận xét & Đánh giá kết quả thực nghiệm</h3>
+                <ul class="review-list">
+                    <li class="review-item">
+                        <i class="fas fa-check-circle"></i>
+                        <b>Sự phân hóa sắc thái rõ rệt:</b> Prompt <i>Cơ bản</i> chỉ mang lại kết quả liệt kê bề mặt giống như từ điển thuần túy (Mức độ Biết). Trong khi đó, prompt <i>Cải tiến</i> mang tính trực quan, dễ liên tưởng nhờ các phép ẩn dụ (Mức độ Hiểu & Áp dụng).
+                    </li>
+                    <li class="review-item">
+                        <i class="fas fa-check-circle"></i>
+                        <b>Đột phá ở cấp độ Nâng cao:</b> Khi tích hợp các Khung tư duy (Feynman, Thang đo Bloom, Chain-of-Thought), câu trả lời của AI đạt tới mức độ "Thấu thị", có khả năng nhận diện các mối liên hệ ngầm sâu sắc và phục vụ tốt cho tư duy Phân tích - Đánh giá.
+                    </li>
+                    <li class="review-item">
+                        <i class="fas fa-check-circle"></i>
+                        <b>Kiểm soát hiện tượng ảo giác (Hallucination):</b> Việc áp dụng các ràng buộc chặt chẽ về ngữ cảnh và cấu trúc ép AI phải xử lý dữ liệu dựa trên căn cứ khoa học, triệt tiêu thông tin sai lệch một cách hiệu quả.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- LIÊN KẾT BÁO CÁO VÀ FOOTER -->
+            <div style="text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                <a href="duanthuchanh.html" class="btn-luxury btn-secondary">
+                    <i class="fas fa-chevron-left" style="font-size: 0.8rem;"></i> Danh sách dự án
+                </a>
+                <a href="https://docs.google.com/document/d/1cfzrx9lmGOKU4H2F7mnYArdQsUkvhRSi/edit" target="_blank" class="btn-luxury btn-word-download">
+                    <i class="fas fa-file-word" style="font-size: 1.1rem;"></i> Xem báo cáo đầy đủ (.docx)
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

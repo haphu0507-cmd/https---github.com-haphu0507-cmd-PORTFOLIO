@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng Kết Hành Trình - Digital Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+    /* Gradient sáng rõ, độ tương phản cao, không gây lóe */
+    .elegant-title {
+        /* Dải màu rực rỡ: Trắng tinh - Xanh Cyan sáng - Trắng tinh */
+        background: linear-gradient(90deg, #ffffff 0%, #7dd3fc 50%, #ffffff 100%);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        /* Animation chạy mượt mà */
+        animation: shimmer 5s infinite linear;
+        /* Bóng đổ mờ giúp chữ sắc nét trên nền tối */
+        filter: drop-shadow(0px 0px 8px rgba(125, 211, 252, 0.5));
+    }
+
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+</style>
+</head>
+<body style="margin: 0; padding: 0; color: #f8fafc; background-color: #0b1120; font-family: sans-serif;">
+
+    <div class="static-background-container" style="
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+        background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(10, 17, 32, 0.92)), url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1920&auto=format&fit=crop');
+        background-size: cover; background-position: center; background-repeat: no-repeat;">
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="letter-spacing: 0.5px;">Phu's <span style="color: #00f2fe; text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);">Portfolio</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Giới thiệu</a></li>
+                <li class="nav-item">
+                    <a href="duanthuchanh.html" class="nav-link">Dự Án Thực Hành ▾</a>
+                    <div class="dropdown">
+                        <a href="bai1.html">Bài 1: Máy tính và thiết bị ngoại vi</a>
+                        <a href="bai2.html">Bài 2: Khai thác dữ liệu và thông tin</a>
+                        <a href="bai3.html">Bài 3: Tổng quan về Trí tuệ nhân tạo</a>
+                        <a href="bai4.html">Bài 4: Giao tiếp và hợp tác môi trường số</a>
+                        <a href="bai5.html">Bài 5: Sáng tạo nội dung số</a>
+                        <a href="bai6.html">Bài 6: An toàn và liêm chính học thuật</a>
+                    </div>
+                </li>
+                <li><a href="tongket.html" class="nav-link active">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 110px; margin-bottom: 70px; position: relative; z-index: 10; padding: 0 20px; box-sizing: border-box;">
+        
+        <div style="text-align: left; margin-bottom: 45px; border-bottom: 1px solid rgba(0, 242, 254, 0.25); padding-bottom: 25px; max-width: 950px; margin-left: auto; margin-right: auto;">
+           <h2 class="elegant-title" style="
+    font-size: 3.2rem; 
+    font-weight: 900; 
+    margin: 0; 
+    letter-spacing: 8px; 
+    text-transform: uppercase; 
+    text-align: center;">
+    TỔNG KẾT
+</h2>
+            <p style="color: #e2e8f0; font-size: 1.1rem; margin-top: 10px; font-weight: 500; letter-spacing: 0.5px; text-align: center;">Nhìn lại và đánh giá quá trình xây dựng sản phẩm Digital Portfolio</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 28px; max-width: 950px; margin: 0 auto;">
+            
+            <div class="maybach-card" style="background: rgba(255, 255, 255, 0.12) !important; backdrop-filter: blur(25px); border: 1px solid rgba(0, 242, 254, 0.35) !important; border-radius: 16px !important; display: flex; overflow: hidden; padding: 35px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);">
+                <div style="width: 6px; background: linear-gradient(to bottom, #00f2fe, #38bdf8); flex-shrink: 0; margin-right: 25px;"></div>
+                <div>
+                    <div style="color: #00f2fe; font-weight: 700; margin-bottom: 14px;">🎯 BÀI HỌC TRẢI NGHIỆM</div>
+                    <h3 style="margin: 0 0 16px 0; color: #fff;">Chia sẻ những trải nghiệm và cảm nhận cá nhân</h3>
+                    <p style="margin: 0; font-size: 1.05rem; color: #f1f5f9; line-height: 1.8; text-align: justify;">Quá trình xây dựng hệ thống website Portfolio này thực sự là một trải nghiệm tự học nghiêm túc và đầy hứng khởi. Việc tự tay hiện thực hóa cấu trúc từ mã nguồn thô cho đến giao diện hiển thị trực quan giúp bản thân thấu hiểu sâu sắc hơn logic vận hành của các sản phẩm số, đồng thời rèn luyện phong cách làm việc chỉn chu, hệ thống.</p>
+                </div>
+            </div>
+
+            <div class="maybach-card" style="background: rgba(255, 255, 255, 0.12) !important; backdrop-filter: blur(25px); border: 1px solid rgba(167, 139, 250, 0.35) !important; border-radius: 16px !important; display: flex; overflow: hidden; padding: 35px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);">
+                <div style="width: 6px; background: linear-gradient(to bottom, #a78bfa, #f472b6); flex-shrink: 0; margin-right: 25px;"></div>
+                <div>
+                    <div style="color: #c084fc; font-weight: 700; margin-bottom: 14px;">💡 TÍCH LŨY NĂNG LỰC</div>
+                    <h3 style="margin: 0 0 16px 0; color: #fff;">Kiến thức và kỹ năng quan trọng</h3>
+                    <p style="margin: 0; font-size: 1.05rem; color: #f1f5f9; line-height: 1.8; text-align: justify;">Giá trị lớn nhất thu hoạch được sau chuỗi bài thực hành chính là tư duy quản lý cấu trúc dữ liệu khoa học và năng lực ứng dụng công nghệ bổ trợ (AI) vào thực tế. Bên cạnh đó, các kỹ năng về an toàn thông tin và liêm chính học thuật là những bệ phóng vững chắc cho hành trình nghiên cứu sau này.</p>
+                </div>
+            </div>
+
+            <div class="maybach-card" style="background: rgba(255, 255, 255, 0.12) !important; backdrop-filter: blur(25px); border: 1px solid rgba(0, 242, 254, 0.35) !important; border-radius: 16px !important; display: flex; overflow: hidden; padding: 35px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);">
+                <div style="width: 6px; background: linear-gradient(to bottom, #00f2fe, #818cf8); flex-shrink: 0; margin-right: 25px;"></div>
+                <div style="flex: 1;">
+                    <div style="color: #00f2fe; font-weight: 700; margin-bottom: 14px;">🚀 KHÁM PHÁ & VƯỢT KHÓ</div>
+                    <h3 style="margin: 0 0 20px 0; color: #fff;">Điểm tâm đắc và thách thức</h3>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px; background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <h4 style="margin: 0 0 10px 0; color: #00f2fe;"><i class="fas fa-heart"></i> Điểm tâm đắc nhất</h4>
+                            <p style="margin: 0; font-size: 0.95rem; line-height: 1.6; color: #e2e8f0; text-align: justify;">Bản thân đã hoàn thiện một không gian số cá nhân có tính thẩm mỹ cao, mang dấu ấn công nghệ riêng và giải quyết bài toán giao diện một cách mạch lạc.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px; background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <h4 style="margin: 0 0 10px 0; color: #c084fc;"><i class="fas fa-exclamation-triangle"></i> Thách thức lớn nhất</h4>
+                            <p style="margin: 0; font-size: 0.95rem; line-height: 1.6; color: #e2e8f0; text-align: justify;">Đối mặt và xử lý các xung đột CSS khi tinh chỉnh giao diện. Việc kiên nhẫn tìm và sửa lỗi (Debug) đã giúp nâng cao tư duy giải quyết vấn đề kỹ thuật cực kỳ hiệu quả.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="maybach-card" style="background: rgba(255, 255, 255, 0.12) !important; backdrop-filter: blur(25px); border: 1px solid rgba(129, 140, 248, 0.35) !important; border-radius: 16px !important; display: flex; overflow: hidden; padding: 35px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);">
+                <div style="width: 6px; background: linear-gradient(to bottom, #818cf8, #a78bfa); flex-shrink: 0; margin-right: 25px;"></div>
+                <div>
+                    <div style="color: #93c5fd; font-weight: 700; margin-bottom: 14px;">🔮 TẦM NHÌN ỨNG DỤNG</div>
+                    <h3 style="margin: 0 0 16px 0; color: #fff;">Định hướng chuyên ngành (Fintech Target)</h3>
+                    <p style="margin: 0; font-size: 1.05rem; color: #f1f5f9; line-height: 1.8; text-align: justify;">Là sinh viên Công nghệ thông tin hướng tới chuyên sâu về Công nghệ Tài chính (Fintech), những mảnh ghép năng lực số này chính là nền tảng cốt lõi để nghiên cứu các mô hình tài chính thông minh, an toàn và bảo mật cao.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="index.html" class="maybach-btn" style="display: inline-flex; align-items: center; gap: 10px; padding: 13px 40px; background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid rgba(0, 242, 254, 0.4); text-decoration: none; font-weight: 600; border-radius: 30px;">
+                Quay lại Trang Chủ
+            </a>
+        </div>
+    </div>
+</body>
+</html>

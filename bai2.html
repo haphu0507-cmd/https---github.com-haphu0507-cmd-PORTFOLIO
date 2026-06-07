@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2: Đánh giá nguồn thông tin học thuật - Tóm tắt dự án</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Đồng bộ bảng màu Maybach Luxury - Phiên bản sắc nét, hiện rõ khối */
+        :root {
+            --maybach-dark: #0b0f19;           
+            --maybach-card: #111827;           
+            --box-bg: #1f2937;                 /* Nền đặc của từng khung để phân tách rõ rệt với nền tổng */
+            --maybach-blue: #38bdf8;           
+            --text-main: #ffffff;              
+            --text-sub: #94a3b8;               
+            --accent-green: #34d399;           
+            --accent-orange: #f59e0b;
+            --border-bright: rgba(255, 255, 255, 0.15); /* Đường viền rõ ràng, sắc nét */
+            --word-color: #2b579a;              /* Màu xanh đặc trưng của Microsoft Word */
+        }
+
+        body { 
+            background: #070a12; 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Khung bo ngoài nội dung chính */
+        .exercise-card {
+            background: var(--maybach-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 45px;
+            max-width: 850px; /* Thu nhỏ chiều rộng để phù hợp giao diện tóm tắt ngắn gọn */
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Cấu trúc các khung nội dung lớn */
+        .content-section-box {
+            background: var(--box-bg);
+            border: 1px solid var(--border-bright);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .subsection-title {
+            font-size: 1.1rem;
+            color: var(--maybach-blue);
+            margin: 15px 0 8px 0;
+        }
+
+        /* Danh sách chiến lược */
+        .summary-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .summary-item {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .summary-item::before {
+            content: "\f105";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 8px;
+            color: var(--maybach-blue);
+        }
+
+        /* Nút bấm điều hướng chân trang */
+        .btn-luxury {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #111827;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-luxury:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Thiết kế nút Word tải file */
+        .btn-word-download {
+            background: var(--word-color);
+            border: 1px solid #1a3a6c;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .btn-word-download:hover {
+            background: #3b6ea5;
+            border-color: #4f87c3;
+            box-shadow: 0 0 20px rgba(43, 87, 154, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-background-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=2564&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+    <div class="luxury-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(7, 10, 18, 0.9) 100%);"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Phu's <span>Portfolio</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Giới thiệu</a></li>
+                <li><a href="duanthuchanh.html" class="nav-link active">Dự Án Thực Hành ▾</a></li>
+                <li><a href="tongket.html" class="nav-link">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px; margin-bottom: 60px;">
+        <div class="exercise-card">
+            
+            <div class="exercise-header" style="margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
+                <span style="color: var(--maybach-blue); font-weight: 700; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase;">Practice Project 02</span>
+                <h2 style="font-size: 2rem; margin: 8px 0 0 0; font-weight: 600; letter-spacing: -0.5px; color: #ffffff;">
+                    Bài 2: Đánh giá nguồn thông tin học thuật
+                </h2>
+            </div>
+
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-bullseye" style="color: var(--accent-green);"></i> Mục tiêu dự án</h3>
+                <p style="color: #cbd5e1; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+                    Nghiên cứu cách xác định chủ đề khoa học, xây dựng chiến lược bộ lọc từ khóa nâng cao để tìm kiếm trên các hệ thống cơ sở dữ liệu lớn toàn cầu. Từ đó, thiết lập danh mục tài liệu chuẩn APA và phân tích, đánh giá độ tin cậy khoa học của 11 nguồn thông tin khác nhau.
+                </p>
+            </div>
+
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-file-alt" style="color: var(--maybach-blue);"></i> Tóm tắt nội dung thực hiện</h3>
+                
+                <h4 class="subsection-title">1. Chủ đề nghiên cứu</h4>
+                <p style="color: #cbd5e1; line-height: 1.6; margin: 0 0 15px 0; font-size: 0.95rem;">
+                    <b>Ứng dụng Trí tuệ nhân tạo và Học máy trong Y tế (Health AI):</b> Nghiên cứu chuyên sâu phương pháp áp dụng thuật toán Học máy và Deep Learning vào hỗ trợ chẩn đoán lâm sàng và xử lý hồ sơ dữ liệu bệnh nhân.
+                </p>
+
+                <h4 class="subsection-title">2. Chiến lược khai thác tài liệu</h4>
+                <ul class="summary-list">
+                    <li class="summary-item"><b>Hệ cơ sở dữ liệu sử dụng:</b> Google Scholar, IEEE Xplore, PubMed, arXiv, Springer, MDPI.</li>
+                    <li class="summary-item"><b>Cú pháp từ khóa:</b> <code>("Machine Learning" OR "Deep Learning") AND "Healthcare" AND "Diagnosis"</code></li>
+                    <li class="summary-item"><b>Giới hạn phạm vi:</b> Lọc tài liệu xuất bản từ 2019 - 2026 bảo toàn tính cập nhật công nghệ.</li>
+                    <li class="summary-item"><b>Kết quả đánh giá:</b> Đã phân tích chi tiết độ tin cậy khoa học của 11 nguồn thông tin (gồm Bài báo khoa học, Sách chuyên khảo và Nguồn mở) bằng thang điểm chất lượng.</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                <a href="duanthuchanh.html" class="btn-luxury btn-secondary" style="width: auto;">
+                    <i class="fas fa-chevron-left" style="font-size: 0.8rem;"></i> Danh sách dự án
+                </a>
+                <a href="https://docs.google.com/document/d/1N2VuHSPI3LYMXhgGbYTU7zkZSWvw--C1/edit?rtpof=true" target="_blank" class="btn-luxury btn-word-download" style="width: auto;">
+                    <i class="fas fa-file-word" style="font-size: 1.1rem;"></i> Xem báo cáo đầy đủ (.docx)
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

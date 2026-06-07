@@ -1,0 +1,485 @@
+/* ==========================================================================
+   1. RESET STYLE CHUNG & CẤU HÌNH LỚP NỀN VIDEO TỐI SF
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #080a0f;
+    color: #e2e8f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Container Video Background Full Màn Hình */
+.video-background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.video-background-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Lớp phủ tối mờ mịn bảo toàn độ tương phản cho text trên nền video */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 10, 15, 0.75); /* Phủ tối để chữ màu sáng hiển thị cực kỳ rõ nét */
+    z-index: -1;
+}
+
+/* Khung bọc giới hạn độ rộng nội dung chính */
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 110px 20px 50px 20px; /* Chừa khoảng trống an toàn cho thanh Navbar */
+}
+
+/* ==========================================================================
+   2. THANH THÀNH PHẦN NAVBAR (MENU ĐIỀU HƯỚNG CỐ ĐỊNH)
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(13, 17, 26, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.logo span {
+    color: #00e5ff;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #38bdf8;
+}
+
+/* Khối Menu Dropdown */
+.nav-item {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #0f131a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    width: 290px;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.nav-item:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown a {
+    display: block;
+    color: #94a3b8;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
+}
+
+.dropdown a:hover {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.05);
+    padding-left: 20px;
+}
+
+/* ==========================================================================
+   3. KHỐI PROFILE TRANG CHỦ HERO-SECTION
+   ========================================================================== */
+.hero-section-new {
+    display: flex;
+    gap: 45px;
+    align-items: flex-start;
+}
+
+/* Cột trái - Định dạng Avatar tròn phát sáng */
+.profile-left-col {
+    flex: 0 0 240px;
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-glow-container {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    padding: 4px;
+    border: 2px solid #38bdf8;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+    overflow: hidden;
+    background: #080a0f;
+}
+
+.avatar-glow-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Cột phải - Chứa thông tin chữ */
+.profile-right-col {
+    flex: 1;
+}
+
+/* Badge sinh viên mờ */
+.badge-vnu {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+/* Tiêu đề Chào hỏi & Tên Gradient đỏ cam */
+.welcome-heading {
+    font-size: 2rem;
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.highlight-name {
+    background: linear-gradient(135deg, #ff4545 0%, #ffaa00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* Hệ lưới hàng cột bên trong Khung thông tin */
+.info-grid-row {
+    display: flex;
+    margin-bottom: 14px;
+}
+
+.info-grid-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-grid-cell {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.98rem;
+}
+
+.info-cell-label {
+    color: #94a3b8;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+}
+
+.info-cell-label i {
+    color: #38bdf8; /* Icon màu xanh Cyan công nghệ */
+    margin-right: 6px;
+    width: 16px;
+    text-align: center;
+}
+
+.info-cell-value {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Nút khám phá dự án đặt gọn gàng, tinh tế bên trong khung */
+.discover-btn-container-center {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.btn-discover-cyber {
+    background: transparent;
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 10px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.btn-discover-cyber:hover {
+    background: rgba(56, 189, 248, 0.08);
+    border-color: #38bdf8;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+    transform: translateY(-1px);
+}
+
+.btn-discover-cyber i {
+    transition: transform 0.2s ease;
+}
+
+.btn-discover-cyber:hover i {
+    transform: translateX(4px);
+}
+
+/* KHỐI SỞ THÍCH VÙNG CHÂN TRANG TRANG CHỦ (BOTTOM INTERESTS BOX) */
+.bottom-interests-box {
+    background: rgba(22, 26, 35, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.interest-block-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin: 0 0 10px 0;
+}
+
+.core-color { color: #38bdf8; }
+.academic-color { color: #a855f7; }
+
+.interest-block-desc {
+    color: #cbd5e1;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.interest-block-desc strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.interest-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 20px 0;
+}
+
+/* ==========================================================================
+   4. ĐỊNH DẠNG KHUNG VIỀN KÍNH MỜ (GLASSMORPHISM KHUNG BAO NGOÀI)
+   ========================================================================== */
+.exercise-card {
+    background: rgba(22, 26, 35, 0.65) !important;   /* Nền tối trong suốt */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Viền trắng mảnh mịn tinh tế */
+    backdrop-filter: blur(12px) !important;         /* Làm mờ lớp nền video sao chạy phía sau */
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 16px !important;                 /* Cấu trúc bo tròn góc */
+    padding: 35px !important;
+    margin-bottom: 25px !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Hộp con phân cấp bên trong (info-card và target-card) */
+.info-card-panel, 
+.target-card-panel {
+    background: rgba(13, 17, 26, 0.45) !important;  /* Nền tối sâu phân cấp rõ rệt */
+    border: 1px solid rgba(56, 189, 248, 0.15) !important; /* Đường viền xanh Cyan mờ tạo độ sâu */
+    border-radius: 12px !important;
+    padding: 20px 24px !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+.panel-section-title {
+    color: #38bdf8 !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-section-desc {
+    color: #cbd5e1 !important;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    margin: 0 0 15px 0;
+    text-align: justify;
+}
+
+/* Định dạng bảng dữ liệu cho các trang bài thực hành (Labs) nếu dùng chung */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    color: #e2e8f0 !important;
+}
+
+thead tr {
+    border-bottom: 2px solid rgba(56, 189, 248, 0.3) !important;
+}
+
+th {
+    color: #38bdf8 !important;
+    font-weight: 600;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ==========================================================================
+   5. ĐÁP ỨNG ĐA MÀN HÌNH (RESPONSIVE CHUẨN MÀN HÌNH NHỎ)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .hero-section-new {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .profile-left-col {
+        flex: none;
+    }
+    .welcome-heading {
+        text-align: center;
+    }
+    .badge-vnu {
+        display: block;
+        width: max-content;
+        margin: 0 auto 15px auto;
+    }
+    .discover-btn-container-center {
+        justify-content: center;
+    }
+    .nav-menu {
+        display: none; /* Ẩn menu trên mobile nếu chưa cấu hình hamburger */
+    }
+}
+
+/* --- Cấu trúc Responsive cho thiết bị nhỏ --- */
+@media (max-width: 600px) {
+    .info-grid-row {
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    .info-grid-row:last-child {
+        margin-bottom: 0;
+    }
+    .exercise-card {
+        padding: 20px !important;
+    }
+}
+
+/* ==========================================================================
+   6. THIẾT LẬP HIỆU ỨNG CHUNG & BỐ CỤC CHIA 2 CỘT SONG SONG
+   ========================================================================== */
+
+/* HIỆU ỨNG TÊN CẦU VỒNG (RAINBOW TEXT) */
+.rainbow-text {
+    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% 100%;
+    animation: rainbow-flow 5s infinite linear;
+    font-weight: 800;
+}
+
+@keyframes rainbow-flow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Cấu trúc chia 2 cột cho Mục tiêu & Sở thích (Đặt ngoài media query để chạy trên PC) */
+.profile-two-columns-grid {
+    display: grid !important; 
+    grid-template-columns: 1fr 1fr !important; /* Chia chính xác 2 cột song song */
+    gap: 25px !important; /* Khoảng cách giữa 2 bảng */
+    width: 100% !important;
+    margin-top: 25px !important;
+    align-items: stretch !important; /* Đảm bảo 2 bảng cao bằng nhau */
+}
+
+/* Đảm bảo các card con nằm bên trong grid không bị nhảy hàng */
+.profile-two-columns-grid .exercise-card {
+    margin-bottom: 0 !important;
+    height: 100% !important;
+}
+
+/* Tự động co về 1 cột dọc khi xem trên màn hình máy tính bảng hoặc điện thoại nhỏ hơn 900px */
+@media (max-width: 900px) {
+    .profile-two-columns-grid {
+        grid-template-columns: 1fr !important;
+    }
+}

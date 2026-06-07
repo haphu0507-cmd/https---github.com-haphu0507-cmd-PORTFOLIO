@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự Án Thực Hành - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Thiết lập biến màu hệ thống */
+        :root {
+            --primary-color: #3498db;
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-sub: rgba(255, 255, 255, 0.65);
+            --btn-bg: rgba(52, 152, 219, 0.15);
+            --btn-hover: #2980b9;
+        }
+
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Thao tác bố cục Grid 2 cột cân xứng như hình mẫu */
+        .project-list-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        /* Tạo khối bảng vuông bo góc với hiệu ứng kính mờ (Glassmorphism) */
+        .content-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 25px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Đẩy nội dung và nút về 2 đầu biệt lập */
+        }
+
+        /* Hiệu ứng Glow phát sáng viền nhẹ khi Hover chuột vào bảng vuông */
+        .content-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.25);
+        }
+
+        /* Nhóm chứa Icon và thông tin chữ bên trái bảng */
+        .info-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Hộp vuông chứa icon chuyên nghiệp */
+        .icon-box {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            background: rgba(52, 152, 219, 0.12);
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Điều chỉnh kiểu chữ tiêu đề bài tập */
+        .text-content strong { 
+            display: block; 
+            font-size: 1.15rem;
+            margin-bottom: 5px; 
+            color: var(--text-main);
+        }
+        
+        .text-content small { 
+            font-size: 0.95rem;
+            color: var(--text-sub); 
+        }
+
+        /* Thiết kế nút "Xem chi tiết" bo tròn độc lập bên phải khối vuông */
+        .btn-detail {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--btn-bg);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-detail:hover {
+            background: var(--btn-hover);
+            border-color: var(--btn-hover);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-background-container">
+    <div class="luxury-overlay"></div>
+</div>
+
+<style>
+    /* CSS Cấu hình nền ảnh mới siêu sang */
+    .luxury-background-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        /* Link ảnh nền nghệ thuật texture kim loại mờ phối xanh đen đại dương */
+        background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .luxury-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        /* Lớp phủ mờ chuyển màu giảm độ chói, làm nổi bật các khối vuông nội thất bên trên */
+        background: linear-gradient(135deg, rgba(10, 20, 30, 0.85) 0%, rgba(13, 17, 23, 0.92) 100%);
+    }
+</style>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Phu's <span>Portfolio</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Giới thiệu</a></li>
+                <li class="nav-item">
+                    <a href="duanthuchanh.html" class="nav-link active">Dự Án Thực Hành ▾</a>
+                </li>
+                <li><a href="tongket.html" class="nav-link">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="exercise-card">
+            <h2 style="font-size: 1.8rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                📂 Trang Dự án thực hành
+            </h2>
+            <p style="margin-bottom: 25px; font-size: 1rem; color: var(--text-sub);">
+                Tập hợp và trình bày các bài tập đã hoàn thành trong quá trình phát triển năng lực số.
+            </p>
+
+            <div class="project-list-wrapper">
+                <div class="content-box">
+                    <div class="info-group">
+                        <div class="icon-box"><i class="fas fa-desktop"></i></div>
+                        <div class="text-content">
+                            <strong>Bài tập 1</strong>
+                            <small>Máy tính và thiết bị ngoại vi</small>
+                        </div>
+                    </div>
+                    <a href="bai1.html" class="btn-detail">Xem chi tiết <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
+                </div>
+
+                <div class="content-box">
+                    <div class="info-group">
+                        <div class="icon-box"><i class="fas fa-database"></i></div>
+                        <div class="text-content">
+                            <strong>Bài tập 2</strong>
+                            <small>Khai thác dữ liệu và thông tin</small>
+                        </div>
+                    </div>
+                    <a href="bai2.html" class="btn-detail">Xem chi tiết <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
+                </div>
+
+                <div class="content-box">
+                    <div class="info-group">
+                        <div class="icon-box"><i class="fas fa-robot"></i></div>
+                        <div class="text-content">
+                            <strong>Bài tập 3</strong>
+                            <small>Tổng quan về Trí tuệ nhân tạo</small>
+                        </div>
+                    </div>
+                    <a href="bai3.html" class="btn-detail">Xem chi tiết <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
+                </div>
+
+                <div class="content-box">
+                    <div class="info-group">
+                        <div class="icon-box"><i class="fas fa-users"></i></div>
+                        <div class="text-content">
+                            <strong>Bài tập 4</strong>
+                            <small>Giao tiếp và hợp tác môi trường số</small>
+                        </div>
+                    </div>
+                    <a href="bai4.html" class="btn-detail">Xem chi tiết <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
+                </div>
+
+                <div class="content-box">
+                    <div class="info-group">
+                        <div class="icon-box"><i class="fas fa-pen-nib"></i></div>
+                        <div class="text-content">
+                            <strong>Bài tập 5</strong>
+                            <small>Sáng tạo nội dung số</small>
+                        </div>
+                    </div>
+                    <a href="bai5.html" class="btn-detail">Xem chi tiết <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
+                </div>
+
+                <div class="content-box">
+                    <div class="info-group">
+                        <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+                        <div class="text-content">
+                            <strong>Bài tập 6</strong>
+                            <small>An toàn và liêm chính học thuật</small>
+                        </div>
+                    </div>
+                    <a href="bai6.html" class="btn-detail">Xem chi tiết <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

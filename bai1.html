@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1: Máy tính và thiết bị ngoại vi - Portfolio Sharp Style</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Định nghĩa bảng màu Maybach Luxury - Phiên bản sắc nét, hiện rõ khối */
+        :root {
+            --maybach-dark: #0b0f19;           
+            --maybach-card: #111827;           /* Nền card tổng thể vững chãi, nam tính */
+            --box-bg: #1f2937;                 /* Nền đặc của từng khung để phân tách rõ rệt với nền card */
+            --maybach-blue: #38bdf8;           /* Màu xanh neon phát sáng nhẹ */
+            --maybach-silver: #e2e8f0;         
+            --text-main: #ffffff;              
+            --text-sub: #94a3b8;               
+            --accent-green: #34d399;           
+            --border-bright: rgba(255, 255, 255, 0.15); /* Đường viền rõ ràng, sắc nét */
+        }
+
+        body { 
+            background: #070a12; 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Khung bo ngoài nội dung chính */
+        .exercise-card {
+            background: var(--maybach-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 45px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* KHUNG TỔNG QUAN: Chia làm 2 cột rõ ràng */
+        .project-overview-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .overview-box {
+            background: var(--box-bg); /* Màu nền đặc tách biệt */
+            border: 2px solid var(--border-bright); /* Viền dày và sáng rõ */
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Tạo độ nổi 3D */
+        }
+
+        .overview-box h5 {
+            margin: 0 0 12px 0;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .overview-box p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* Nút bấm xem file báo cáo (.docx) phong cách cơ khí sang trọng */
+        .btn-luxury {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #111827;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-luxury:hover {
+            background: #0284c7;
+            border-color: #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* TRỤC TỪNG KHUNG BƯỚC THỰC HIỆN */
+        .steps-timeline { 
+            display: grid; 
+            gap: 24px; 
+            position: relative;
+        }
+
+        /* Đường line nối dọc giữa các bước */
+        .steps-timeline::before {
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 30px;
+            bottom: 30px;
+            width: 2px;
+            background: rgba(56, 189, 248, 0.3);
+        }
+        
+        .step-card {
+            background: var(--box-bg); /* Đồng bộ nền đặc phân tách */
+            border: 2px solid var(--border-bright); /* Hiện rõ khung bao quanh bước */
+            border-radius: 16px;
+            padding: 24px 30px;
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* Tạo bóng đổ tách khối */
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            background: #374151; /* Đổi màu khi hover để thấy rõ tương tác khung */
+            border-color: var(--maybach-blue);
+            transform: translateX(5px); /* Nhấc nhẹ khung sang phải khi di chuột */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Vòng tròn số thứ tự bước */
+        .step-number {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: #111827;
+            border: 2px solid var(--maybach-blue);
+            color: var(--maybach-blue);
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover .step-number {
+            background: var(--maybach-blue);
+            color: #111827;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        .step-body {
+            flex-grow: 1;
+        }
+
+        .step-body h4 {
+            margin: 0 0 6px 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .step-body p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        /* Phím tắt hiển thị cơ học */
+        .kbd-key {
+            background: linear-gradient(180deg, #475569, #1e293b);
+            border: 1px solid #64748b;
+            border-radius: 4px;
+            box-shadow: 0 2px 0 #0f172a;
+            color: #ffffff;
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            line-height: 1;
+            padding: 3px 6px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-background-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=2564&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+    <div class="luxury-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(7, 10, 18, 0.9) 100%);"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Phu's <span>PORTFOLIO</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Giới thiệu</a></li>
+                <li><a href="duanthuchanh.html" class="nav-link active">Dự Án Thực Hành ▾</a></li>
+                <li><a href="tongket.html" class="nav-link">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px; margin-bottom: 60px;">
+        <div class="exercise-card">
+            
+            <div class="exercise-header" style="margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 25px;">
+                <span style="color: var(--maybach-blue); font-weight: 700; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase;">Practice Project 01</span>
+                <h2 style="font-size: 2.2rem; margin: 8px 0 0 0; font-weight: 600; letter-spacing: -0.5px; color: #ffffff;">
+                    Bài 1: Máy tính và thiết bị ngoại vi
+                </h2>
+            </div>
+
+            <div class="project-overview-grid">
+                <div class="overview-box">
+                    <h5 style="color: var(--accent-green);"><i class="fas fa-bullseye"></i> Mục tiêu bài tập</h5>
+                    <p>Hệ thống hóa cấu trúc lưu trữ thông tin cá nhân. Thực hành thuần thục các thao tác quản trị tệp tin, cấu trúc thư mục trên hệ điều hành Windows và hình thành tư duy sắp xếp dữ liệu khoa học.</p>
+                </div>
+                <div class="overview-box" style="display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+                    <h5 style="color: #cbd5e1;"><i class="fas fa-box-open" style="color: var(--maybach-blue);"></i> Sản phẩm cuối cùng</h5>
+                    <a href="https://docs.google.com/document/d/1QCgpzXRkw2dCjO6i-c9wA52obQ3QeycN/edit" class="btn-luxury" target="_blank">
+                         Xem File Báo Cáo (.docx) <i class="fas fa-file-word" style="color: #2b579a;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin: 35px 0; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+
+            <h3 style="margin-bottom: 30px; font-size: 1.3rem; font-weight: 500; display: flex; align-items: center; gap: 10px; color: #ffffff;">
+                <i class="fas fa-route" style="color: var(--maybach-blue);"></i> Tóm tắt quá trình thực hiện bài tập
+            </h3>
+
+            <div class="steps-timeline">
+                
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-body">
+                        <h4>Khởi động File Explorer</h4>
+                        <p>Sử dụng tổ hợp phím tắt nhanh <span class="kbd-key">Win</span> + <span class="kbd-key">E</span> hoặc nhấp trực tiếp vào icon thư mục màu vàng tại thanh Taskbar để mở trình quản trị tệp tin của hệ thống.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-body">
+                        <h4>Định vị không gian lưu trữ</h4>
+                        <p>Từ thanh điều hướng bên trái, truy cập vào mục <b>This PC</b>, sau đó tiến hành truy cập vào phân vùng ổ đĩa không chứa hệ điều hành dữ liệu gốc (Ví dụ: ổ <code>New Volume (D:)</code> hoặc ổ <code>E:</code>).</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-body">
+                        <h4>Thiết lập thư mục gốc định danh</h4>
+                        <p>Nhấp chuột phải vào không gian trống, điều hướng tới <code>New</code> &rarr; Chọn <code>Folder</code>. Khởi tạo thư mục chuẩn tên viết liền không dấu: <code>ThucHanh_HaThanhPhu</code>.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <div class="step-body">
+                        <h4>Cấu trúc tệp tài liệu văn bản</h4>
+                        <p>Truy cập vào bên trong thư mục cá nhân vừa tạo. Thực hiện thao tác nhấp phải chuột, chọn <code>New</code> &rarr; <code>Text Document</code> để khởi tạo một tệp văn bản thô sơ khai ban đầu.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">05</div>
+                    <div class="step-body">
+                        <h4>Chuẩn hóa phân loại & Đổi tên</h4>
+                        <p>Sử dụng tính năng <b>Rename</b> để đổi tên tệp tin cũ thành định dạng tệp thông tin chính xác. Đồng thời tiến hành lập thêm một thư mục nhánh phân loại mới mang tên <code>TaiLieu</code>.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">06</div>
+                    <div class="step-body">
+                        <h4>Thao tác Điều phối dữ liệu (Copy/Cut/Paste)</h4>
+                        <p>Thực hiện kiểm thử sao chép tệp tin qua lệnh <b>Copy</b> (<span class="kbd-key">Ctrl</span> + <span class="kbd-key">C</span>) và di dời tệp tin mới tạo <code>DiChuyen.txt</code> qua lệnh <b>Cut</b> (<span class="kbd-key">Ctrl</span> + <span class="kbd-key">X</span>) vào sâu bên trong thư mục nhánh <code>TaiLieu</code>.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">07</div>
+                    <div class="step-body">
+                        <h4>Kiểm soát bộ nhớ & Khôi phục rác</h4>
+                        <p>Thực hiện quy trình xóa tệp dữ liệu thừa thông qua lệnh <b>Delete</b> đưa vào Recycle Bin và học cách hủy vĩnh viễn dữ liệu với tổ hợp nâng cao <span class="kbd-key">Shift</span> + <span class="kbd-key">Delete</span>. Thao tác mở Thùng rác hệ thống để thử nghiệm lệnh <b>Restore</b> đưa tệp tin về vị trí làm việc ban đầu.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="duanthuchanh.html" class="btn-luxury btn-secondary" style="width: auto;">
+                    <i class="fas fa-chevron-left" style="font-size: 0.8rem;"></i> Quay lại danh sách dự án
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

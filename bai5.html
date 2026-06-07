@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 5: Ứng Dụng AI Trong Sáng Tạo Nội Dung Số</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Hệ màu Cyber Technology / Maybach Luxury cao cấp */
+        :root {
+            --bg-deep: #070a13;
+            --maybach-card: rgba(17, 24, 39, 0.75);           
+            --box-bg: rgba(31, 41, 55, 0.45);                 
+            --maybach-blue: #38bdf8;           
+            --text-main: #f8fafc;             
+            --text-sub: #94a3b8;              
+            --accent-green: #34d399;           
+            --accent-purple: #a855f7;
+            --accent-orange: #f59e0b;
+            --accent-pink: #f43f5e;
+            --border-glow: rgba(56, 189, 248, 0.25);
+            --word-color: #2b579a;               
+        }
+
+        body { 
+            background: var(--bg-deep); 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Khung bo ngoài nội dung chính - Hiệu ứng Glow Viền Cao Cấp */
+        .exercise-card {
+            background: var(--maybach-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 1050px; 
+            margin: 0 auto;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.05);
+            position: relative;
+        }
+
+        /* Khung nội dung lớn - Thiết kế viền góc cạnh tinh tế */
+        .content-section-box {
+            background: var(--box-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--maybach-blue); /* Điểm nhấn vạch màu công nghệ */
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .content-section-box:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title i {
+            font-size: 1.4rem;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        /* Khối tiến trình thực hiện (Timeline/Process) tối giản, tinh tế */
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .process-step {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 24px;
+            transition: border-color 0.3s ease;
+        }
+
+        .process-step:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .step-badge {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--maybach-blue);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .step-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 5px 0 0 0;
+        }
+
+        .ai-tool-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .prompt-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* Khối so sánh Độc bản và Chí mạng của AI */
+        .ai-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+
+        @media (min-width: 900px) {
+            .ai-comparison-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .ai-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .ai-card:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .ai-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 12px;
+        }
+
+        .ai-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .ai-name-info h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: #fff;
+        }
+
+        .ai-name-info span {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+        }
+
+        .ai-point-box {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .ai-point-box.strength { color: var(--accent-green); }
+        .ai-point-box.weakness { color: var(--accent-pink); }
+        .ai-point-box.human-touch { 
+            color: #fff; 
+            background: rgba(255, 255, 255, 0.02); 
+            padding: 10px; 
+            border-radius: 8px; 
+            border-left: 3px solid var(--maybach-blue); 
+            margin-top: auto;
+        }
+
+        /* Hệ thống nút bấm Luxury */
+        .btn-luxury {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(30, 41, 59, 0.5);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-luxury:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--maybach-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-word-download {
+            background: linear-gradient(135deg, var(--word-color), #1e3d6b);
+            border: 1px solid rgba(43, 87, 154, 0.4);
+            color: #ffffff;
+        }
+
+        .btn-word-download:hover {
+            background: linear-gradient(135deg, #3469b4, var(--word-color));
+            border-color: var(--maybach-blue);
+            box-shadow: 0 8px 25px rgba(43, 87, 154, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .exercise-card { padding: 25px; }
+            .step-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-background-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=2564&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+    <div class="luxury-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(7, 10, 18, 0.9) 100%);"></div>
+
+    <nav class="navbar" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: rgba(7, 10, 18, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.04);">
+        <div class="nav-container" style="max-width: 1200px; margin: 0 auto; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 1.25rem; letter-spacing: -0.5px;">Phu's <span style="color: var(--maybach-blue);">Portfolio</span></a>
+            <ul class="nav-menu" style="list-style: none; display: flex; gap: 30px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="color: var(--text-sub); text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-sub)'">Giới thiệu</a></li>
+                <li><a href="duanthuchanh.html" style="color: #fff; text-decoration: none; font-size: 0.95rem; font-weight: 600;">Dự Án Thực Hành</a></li>
+                <li><a href="tongket.html" style="color: var(--text-sub); text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-sub)'">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 120px; margin-bottom: 70px; padding: 0 20px;">
+        <div class="exercise-card">
+            
+            <div class="exercise-header" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 25px;">
+                <span style="color: var(--maybach-blue); font-weight: 800; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; display: inline-block; margin-bottom: 6px;">Lab Practice 05</span>
+                <h2 style="font-size: 2.1rem; margin: 0; font-weight: 600; letter-spacing: -0.5px; color: #ffffff; line-height: 1.3;">
+                    Bài 5: Báo Cáo Dự Án Ứng Dụng AI Trong Sáng Tạo Nội Dung Số
+                </h2>
+                <div style="margin-top: 12px; font-size: 0.95rem; color: #c084fc; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-magic"></i> Dự án: “Sự giao thoa di sản: Sức hút từ yếu tố văn hóa truyền thống trong các sân khấu đương đại của Anh Trai Vượt Ngàn Chông Gai”
+                </div>
+            </div>
+
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-bullseye" style="color: var(--accent-green);"></i> Tổng quan & Mục tiêu dự án</h3>
+                <p style="color: #cbd5e1; line-height: 1.7; margin: 0; font-size: 0.98rem; text-align: justify;">
+                    Khảo sát, giải mã và trực quan hóa bản sắc nghệ thuật cổ truyền Việt Nam được tái sinh tinh tế trong các không gian trình diễn hiện đại của chương trình "Anh Trai Vượt Ngàn Chông Gai". Dự án tập trung phân tích sâu sắc cách các yếu tố văn hóa di sản (nhạc cụ truyền thống, làn điệu dân ca, hào khí dân tộc) đóng vai trò làm chất xúc tác cốt lõi thu hút khán giả đại chúng, đặc biệt là thế hệ trẻ.
+                </p>
+                <div style="margin-top: 15px; color: var(--text-sub); font-size: 0.9rem; font-style: italic;">
+                    <i class="fas fa-cubes"></i> Phương thức triển khai: Quy trình ứng dụng mô hình <b>Co-creation</b> (Đồng sáng tạo tích hợp linh hoạt giữa Trí tuệ con người và thuật toán Máy).
+                </div>
+            </div>
+
+            <div class="content-section-box" style="border-left-color: var(--accent-purple);">
+                <h3 class="section-title"><i class="fas fa-sync" style="color: var(--accent-purple);"></i> Tiến trình thực thi chiến lược Co-creation</h3>
+                
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div>
+                                <span class="step-badge">Giai đoạn 1</span>
+                                <h4 class="step-title">Kiến tạo cấu trúc tư duy và Dàn ý học thuật</h4>
+                            </div>
+                            <span class="ai-tool-tag"><i class="fas fa-brain"></i> Google Gemini</span>
+                        </div>
+                        <p style="font-size:0.95rem; margin:0; line-height:1.6; color:#cbd5e1;">
+                            Sử dụng Kỹ thuật Prompt vai trò nâng cao nhằm bóc tách 4 yếu tố thành công cốt lõi bao gồm: Sự kết nối liên thế hệ, tư duy sản xuất kết hợp nhạc cụ bản địa, tâm lý học hành vi "bromance" và chiến lược truyền thông Omni-channel.
+                        </p>
+                        <div class="prompt-container">
+                            <strong>Kỹ thuật Prompt điều hướng:</strong> "Bạn là một nhà phê bình âm nhạc uy tín... Hãy viết chi tiết dàn ý phân tích cho luận điểm: 'Bản sắc văn hóa dân tộc trong tư duy sản xuất âm nhạc đương đại của show Anh Trai Vượt Ngàn Chông Gai'..."
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div>
+                                <span class="step-badge" style="background:rgba(245,158,11,0.12); color:var(--accent-orange); border-color:rgba(245,158,11,0.25);">Giai đoạn 2</span>
+                                <h4 class="step-title">Dịch chuyển ý tưởng sang Ngôn ngữ thị giác</h4>
+                            </div>
+                            <span class="ai-tool-tag" style="color:var(--accent-green); background:rgba(52,211,153,0.1); border-color:rgba(52,211,153,0.2);"><i class="fas fa-image"></i> ChatGPT / DALL-E 3</span>
+                        </div>
+                        <p style="font-size:0.95rem; margin:0; line-height:1.6; color:#cbd5e1;">
+                            Chuyển đổi dữ liệu văn bản sang không gian vector nghệ thuật sinh động, mô phỏng phong cách Chibi thời thượng từ bối cảnh biểu diễn thực tế của các nghệ sĩ.
+                        </p>
+                        <div class="prompt-container">
+                            <strong>Kỹ thuật Prompt điều hướng:</strong> "Hãy tạo một bức tranh minh họa kỹ thuật số chi tiết và rực rỡ theo phong cách chibi... Nhân vật trung tâm là một anh tài chibi nam mặc áo dài cách tân màu đỏ đậm..."
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div>
+                                <span class="step-badge" style="background:rgba(244,63,94,0.12); color:var(--accent-pink); border-color:rgba(244,63,94,0.25);">Giai đoạn 3</span>
+                                <h4 class="step-title">Thiết lập bố cục và Tối ưu hóa dòng chảy Infographic</h4>
+                            </div>
+                            <span class="ai-tool-tag" style="color:var(--maybach-blue); background:rgba(56,189,248,0.1); border-color:rgba(56,189,248,0.2);"><i class="fas fa-palette"></i> Canva AI (Magic Design)</span>
+                        </div>
+                        <p style="font-size:0.95rem; margin:0; line-height:1.6; color:#cbd5e1;">
+                            Tự động hóa khâu Prototyping ban đầu, phân rã bố cục cắt dán (Collage) bất đối xứng mang đậm màu sắc lễ hội âm nhạc đương đại, trẻ trung và năng động.
+                        </p>
+                        <div class="prompt-container">
+                            <strong>Kỹ thuật Prompt điều hướng:</strong> "Create a vibrant and energetic vertical infographic titled 'HERITAGE FUSION: THE PULSE OF TRADITIONS'. Design style: Youthful, dynamic, and high-energy modern fusion..."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section-box" style="border-left-color: var(--accent-orange);">
+                <h3 class="section-title"><i class="fas fa-balance-scale" style="color: var(--accent-orange);"></i> Đối sánh sắc thái đầu ra & Giới hạn</h3>
+                
+                <div class="ai-comparison-grid">
+                    <div class="ai-card">
+                        <div class="ai-card-header">
+                            <div class="ai-avatar" style="color:#38bdf8; background:rgba(56,189,248,0.1);"><i class="fas fa-robot"></i></div>
+                            <div class="ai-name-info">
+                                <h4>Google Gemini</h4>
+                                <span>Mảng Văn Bản</span>
+                            </div>
+                        </div>
+                        <div class="ai-point-box strength">
+                            <i class="fas fa-plus-circle"></i> <b>Mạnh:</b> Khái quát cấu trúc tư duy vĩ mô nhanh chóng, liên kết lý thuyết học thuật.
+                        </div>
+                        <div class="ai-point-box weakness">
+                            <i class="fas fa-minus-circle"></i> <b>Điểm yếu:</b> Thiếu "bộ lọc cảm xúc", bất lực trước những rung cảm văn hóa tinh tế.
+                        </div>
+                        <div class="ai-point-box human-touch">
+                            <i class="fas fa-user-edit"></i> <b>Sửa chữa:</b> Trực tiếp phân tích chuyên sâu các case study thực tế (<i>Trống Cơm, Dạ cổ hoài lang</i>).
+                        </div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-card-header">
+                            <div class="ai-avatar" style="color:#a855f7; background:rgba(168,85,247,0.1);"><i class="fas fa-paint-brush"></i></div>
+                            <div class="ai-name-info">
+                                <h4>DALL-E 3</h4>
+                                <span>Mảng Hình Ảnh</span>
+                            </div>
+                        </div>
+                        <div class="ai-point-box strength">
+                            <i class="fas fa-plus-circle"></i> <b>Mạnh:</b> Chuyển đổi ngôn ngữ tự nhiên tốt, mô phỏng phong cách đồ họa Chibi tốt.
+                        </div>
+                        <div class="ai-point-box weakness">
+                            <i class="fas fa-minus-circle"></i> <b>Điểm yếu:</b> Rào cản đồng hóa văn hóa, vẽ sai kết cấu áo dài, nhạc cụ dân tộc.
+                        </div>
+                        <div class="ai-point-box human-touch">
+                            <i class="fas fa-user-edit"></i> <b>Sửa chữa:</b> Ứng dụng Prompt Engineering mô tả chi tiết vật lý để hiệu chỉnh chính xác chất liệu bản địa.
+                        </div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-card-header">
+                            <div class="ai-avatar" style="color:#34d399; background:rgba(52,211,153,0.1);"><i class="fas fa-th-large"></i></div>
+                            <div class="ai-name-info">
+                                <h4>Canva AI</h4>
+                                <span>Mảng Đồ Họa</span>
+                            </div>
+                        </div>
+                        <div class="ai-point-box strength">
+                            <i class="fas fa-plus-circle"></i> <b>Mạnh:</b> Giải phóng sức lao động ở khâu tạo layout nền tảng, tiết kiệm 70% thời gian.
+                        </div>
+                        <div class="ai-point-box weakness">
+                            <i class="fas fa-minus-circle"></i> <b>Điểm yếu:</b> Thẩm mỹ rập khuôn, thường xuyên xảy ra lỗi vỡ font hệ thống tiếng Việt.
+                        </div>
+                        <div class="ai-point-box human-touch">
+                            <i class="fas fa-user-edit"></i> <b>Sửa chữa:</b> Tái cấu trúc hệ font chữ không chân (Sans-serif), tự sắp xếp bố cục lồng ảnh nghệ sĩ.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section-box" style="border-left-color: var(--accent-pink);">
+                <h3 class="section-title"><i class="fas fa-shield-alt" style="color: var(--accent-pink);"></i> Vấn đề đạo đức trong sáng tạo</h3>
+                <p style="color: #cbd5e1; line-height: 1.7; font-size: 0.95rem; margin-bottom: 12px; text-align: justify;">
+                    Việc lạm dụng trí tuệ nhân tạo đặt ra những thách thức đạo đức nghiêm trọng. Thứ nhất là vấn đề sở hữu trí tuệ khi các mô hình học từ hàng triệu tác phẩm mà không có sự ghi nhận bản quyền. Thứ hai là rủi ro phát sinh <b>'ảo giác AI' (Hallucination)</b> – đưa ra các phân tích sai lệch về nhạc lý và văn hóa cổ truyền Việt Nam nếu con người không kiểm chứng chặt chẽ.
+                </p>
+                <div style="background: rgba(244,63,94,0.06); border: 1px solid rgba(244,63,94,0.15); padding: 15px; border-radius: 8px; color: #fda4af; font-weight: 500; font-size: 0.93rem;">
+                    <i class="fas fa-exclamation-triangle"></i> <b>Nguyên tắc tối thượng:</b> Ranh giới giữa việc "dùng AI hỗ trợ" and "đạo văn công nghệ" là vô cùng mong manh. Để bảo tồn giá trị chân thực của một sản phẩm phê bình văn hóa nghệ thuật, dấu ấn cá nhân, tư duy phản biện và năng lực chắp bút độc lập của con người luôn phải giữ vai trò quyết định định hướng và chiếm tỷ trọng áp đảo (&gt;50%) trên sản phẩm cuối cùng. AI mãi mãi chỉ là bệ phóng, trí tuệ của chính bạn mới là động cơ dẫn lối.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 45px; display: flex; justify-content: center; gap: 20px;">
+                <a href="duanthuchanh.html" class="btn-luxury btn-secondary">
+                    <i class="fas fa-chevron-left" style="font-size: 0.8rem;"></i> Danh sách dự án
+                </a>
+                <a href="https://docs.google.com/document/d/11VbbHGAhc5reh4vM4znqtZUlPsGlQzt_/edit" target="_blank" class="btn-luxury btn-word-download" title="Xem báo cáo đầy đủ trên Google Docs">
+                    <i class="fas fa-file-alt" style="font-size: 1.1rem;"></i> Xem báo cáo đầy đủ (Google Docs)
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

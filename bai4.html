@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 4: Vai Trò Và Trải Nghiệm Điều Phối Công Cụ Cộng Tác Trong Dự Án Nhóm</title>
+    <!-- Hệ font chuẩn của Bài 2 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #060b16;               /* Màu tối nền của Bài 2 */
+            --card-main: #131926;             
+            --box-inner: #192233;             
+            --blue-primary: #0088ff;          
+            --blue-light: #00d2ff;            
+            --purple-accent: #8b5cf6;
+            --text-title: #ffffff;
+            --text-desc: #94a3b8;
+            --text-content: #cbd5e1;
+            --border-soft: rgba(255, 255, 255, 0.05);
+        }
+
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-content); 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* KHỚP HOÀN HẢO BACKGROUND SÓNG LƯỢN (ABSTRACT WAVES) CỦA BÀI 2 */
+        .background-waves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% -20%, #0c1a30 0%, #050811 100%);
+        }
+
+        .background-waves::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            /* Tạo các đường sóng lượn mờ ảo dạng vector như ảnh image_84d2d0.jpg */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cpath d='M0,150 C300,300 600,0 900,150 C1200,300 1500,50 1600,100 L1600,800 L0,800 Z' fill='none' stroke='rgba(0, 136, 255, 0.06)' stroke-width='4'/%3E%3Cpath d='M0,250 C400,100 700,400 1100,200 C1400,50 1500,250 1600,200 L1600,800 L0,800 Z' fill='none' stroke='rgba(0, 210, 255, 0.04)' stroke-width='3'/%3E%3Cpath d='M0,350 C250,500 550,200 850,350 C1150,500 1450,250 1600,300 L1600,800 L0,800 Z' fill='none' stroke='rgba(0, 136, 255, 0.03)' stroke-width='2'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.85;
+        }
+
+        /* KHUNG CARD CHÍNH - BO TRÒN VÀ ĐỔ BÓNG THEO BÀI 2 */
+        .exercise-card {
+            background: var(--card-main);
+            border: 1px solid var(--border-soft);
+            border-radius: 24px; /* Khớp với góc bo mịn ở image_84d2d0.jpg */
+            padding: 50px 45px;
+            max-width: 880px;
+            margin: 0 auto;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* CÁC KHỐI NỘI DUNG CON (MỤC TIÊU, NỘI DUNG,...) */
+        .content-section-box {
+            background: rgba(25, 34, 51, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--blue-primary); 
+            border-radius: 16px; 
+            padding: 28px;
+            margin-bottom: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .content-section-box:hover {
+            background: rgba(25, 34, 51, 0.7);
+            border-left-color: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 136, 255, 0.08);
+        }
+
+        /* TIÊU ĐỀ KHÔNG BỊ IN HOA TOÀN BỘ - CHỮ MỀM MẠI THEO BÀI 2 */
+        .exercise-header h2 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            color: var(--text-title);
+            line-height: 1.35;
+            margin: 10px 0 0 0;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-top: 0;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--blue-light);
+            font-size: 1.2rem;
+        }
+
+        .badge-project {
+            color: var(--blue-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: inline-block;
+        }
+
+        /* GRID CÔNG CỤ */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .tool-card-item {
+            background: rgba(13, 19, 31, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card-item:hover {
+            border-color: rgba(0, 210, 255, 0.2);
+            background: rgba(13, 19, 31, 0.8);
+            transform: scale(1.02);
+        }
+
+        .tool-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(0, 136, 255, 0.1);
+            color: var(--blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .tool-info h4 { margin: 0 0 6px 0; font-size: 1.05rem; color: #fff; font-weight: 500; }
+        .tool-info p { margin: 0; font-size: 0.85rem; color: var(--text-desc); line-height: 1.5; text-align: justify; }
+
+        /* BẢNG BIỂU */
+        .matrix-table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid var(--border-soft);
+            background: rgba(13, 19, 31, 0.4);
+            margin-top: 15px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .matrix-table th {
+            background: rgba(13, 19, 31, 0.8);
+            color: var(--blue-light);
+            text-align: left;
+            padding: 14px 18px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .matrix-table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            color: var(--text-content);
+            vertical-align: top;
+        }
+
+        .matrix-table tr:last-child td { border-bottom: none; }
+
+        .badge-task {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(0, 136, 255, 0.15);
+            color: var(--blue-light);
+            margin-bottom: 6px;
+        }
+
+        .task-subtext { font-size: 0.8rem; color: var(--text-desc); }
+
+        /* DANH SÁCH REVIEW */
+        .review-list { list-style: none; padding: 0; margin: 0; }
+        .review-item { position: relative; padding-left: 26px; margin-bottom: 18px; font-size: 0.92rem; text-align: justify; }
+        .review-item i { position: absolute; left: 0; top: 5px; color: var(--blue-light); }
+
+        /* THANH ĐIỀU HƯỚNG NAVBAR - THEO ẢNH BÀI 2 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(6, 11, 22, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+        .nav-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+        }
+        .logo span { color: var(--blue-light); }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            font-size: 0.88rem;
+        }
+        .nav-menu a { color: var(--text-desc); text-decoration: none; transition: 0.2s; font-weight: 500; }
+        .nav-menu a:hover { color: #fff; }
+        .nav-menu .active { 
+            color: #fff; 
+            background: rgba(0, 136, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 136, 255, 0.2);
+        }
+        .dropdown-icon { font-size: 0.75rem; margin-left: 4px; }
+
+        /* BUTTONS GRADIENT BÀI 2 */
+        .btn-container { text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 16px; }
+        .btn-base {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 24px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue-primary) 0%, #0055cc 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 136, 255, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 136, 255, 0.4);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-content);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .exercise-card { padding: 30px 20px; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .btn-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-background-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=2564&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+    <div class="luxury-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(7, 10, 18, 0.9) 100%);"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Phu's <span>Portfolio</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Giới thiệu</a></li>
+                <li><a href="duanthuchanh.html" class="nav-link active">Dự Án Thực Hành ▾</a></li>
+                <li><a href="tongket.html" class="nav-link">Tổng kết</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Khung content chính -->
+    <div class="container" style="margin-top: 120px; margin-bottom: 80px; padding: 0 20px;">
+        <div class="exercise-card">
+            
+            <div class="exercise-header" style="margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 25px;">
+                <span class="badge-project">PRACTICE PROJECT 04</span>
+                <h2>Vai trò và trải nghiệm điều phối công cụ cộng tác trong dự án nhóm</h2>
+                <div style="margin-top: 12px; font-size: 0.92rem; color: var(--text-desc); display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-folder-open" style="color: var(--blue-primary)"></i> Dự án: “Xây dựng hệ thống sàn đấu giá trực tuyến bằng Java, JavaFX và SQLite”
+                </div>
+            </div>
+
+            <!-- KHỐI 1: MỤC TIÊU ĐIỀU PHỐI -->
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="sub-icon fas fa-bullseye"></i> Mục tiêu thực nghiệm & Tầm nhìn quản trị</h3>
+                <p style="color: var(--text-content); margin: 0; font-size: 0.93rem; text-align: justify; font-weight: 300;">
+                    Mục tiêu tối cao của việc thực nghiệm điều phối là thiết lập, cấu hình cấu trúc và duy trì tính toàn vẹn của một **hệ sinh thái công cụ số cộng tác đồng bộ**. Trong bối cảnh phát triển dự án Sàn đấu giá trực tuyến từ con số 0, việc điều phối tốt giúp xóa bỏ hoàn toàn trạng thái bất đối xứng thông tin giữa các mảng phân tách như Backend (xử lý logic đấu giá, luồng cơ sở dữ liệu SQLite) và Frontend (thiết kế UI/UX trên JavaFX). Đồng thời, hoạt động này giúp tối ưu hóa chu kỳ tích hợp, giải phóng kịp thời các điểm nghẽn tiến độ nguy cấp (Critical Bottlenecks) nhằm bảo vệ mốc thời gian phân phối phần mềm theo đúng cam kết Agile.
+                </p>
+            </div>
+
+            <!-- KHỐI 2: HỆ SINH THÁI CÔNG CỤ -->
+            <div class="content-section-box" style="border-left-color: var(--purple-accent);">
+                <h3 class="section-title"><i class="fas fa-project-diagram" style="color: var(--purple-accent)"></i> Phân rã chức năng hệ sinh thái 4 Nhóm Công cụ</h3>
+                
+                <div class="tools-grid">
+                    <div class="tool-card-item">
+                        <div class="tool-icon-box"><i class="fab fa-trello"></i></div>
+                        <div class="tool-info">
+                            <h4>Quản lý tiến độ (Trello)</h4>
+                            <p>Ứng dụng mô hình Kanban trực quan hóa chu kỳ công việc. Phân tách không gian lưu trữ thành các cột trạng thái: Backlog, In Progress, Testing và Done để dễ dàng theo dõi.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-card-item">
+                        <div class="tool-icon-box"><i class="fab fa-google-drive"></i></div>
+                        <div class="tool-info">
+                            <h4>Tài liệu & Đặc tả (Google Docs)</h4>
+                            <p>Nền tảng khởi tạo văn bản dùng chung. Được áp dụng để xây dựng tài liệu thiết kế hệ thống (Blueprint), đặc tả cơ sở dữ liệu SQLite và đồng soạn thảo báo cáo đồ án.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-card-item">
+                        <div class="tool-icon-box"><i class="fab fa-github"></i></div>
+                        <div class="tool-info">
+                            <h4>Mã nguồn (GitHub)</h4>
+                            <p>Trục xương sống của dự án. Quản lý phiên bản code Java, chia nhánh phát triển độc lập (branching), rà soát mã nguồn qua Pull Request và giải quyết các cuộc xung đột mã.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-card-item">
+                        <div class="tool-icon-box"><i class="fab fa-facebook-messenger"></i></div>
+                        <div class="tool-info">
+                            <h4>Giao tiếp (Messenger Luồng)</h4>
+                            <p>Kênh truyền thông tốc độ cao. Sử dụng để ghim các thông báo khẩn cấp, chia sẻ nhanh các đoạn log lỗi ngoại lệ của SQLite/JavaFX, và thực hiện họp nhanh nhóm gỡ lỗi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KHỐI 3: MA TRẬN TIẾN TRÌNH -->
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-table"></i> Ma trận phân rã tiến độ & Lộ trình phân phối</h3>
+                
+                <div class="matrix-table-container">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Thời Gian</th>
+                                <th style="width: 50%;">Nhiệm Vụ Cá Nhân Thực Hiện</th>
+                                <th style="width: 25%;">Sản Phẩm Đầu Ra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="badge-task" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">Giai đoạn 1</span>
+                                    <div class="task-subtext">25/04 - 26/04</div>
+                                </td>
+                                <td>Chủ trì họp khởi động (Kick-off); phân tích yêu cầu bài toán Sàn đấu giá; thiết lập kiến trúc thư mục Java; định nghĩa sơ đồ quan hệ SQLite và phân chia tác vụ lên Trello.</td>
+                                <td style="color: var(--blue-light); font-weight: 500;">
+                                    • Project Blueprint<br>
+                                    • Database Schema<br>
+                                    • Trello Task Board
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge-task">Giai đoạn 2</span>
+                                    <div class="task-subtext">27/04 - 28/04</div>
+                                </td>
+                                <td>Khởi tạo Repository trên GitHub và phân quyền; tổ chức quy tắc Git Flow; trực tiếp triển khai mã nguồn các lớp Core Model (User, AuctionItem); giám sát và xử lý trễ hạn.</td>
+                                <td style="color: var(--blue-light); font-weight: 500;">
+                                    • GitHub Repo Active<br>
+                                    • Core Business Classes<br>
+                                    • Git Protocol
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge-task" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">Giai đoạn 3</span>
+                                    <div class="task-subtext">29/04 - 02/05</div>
+                                </td>
+                                <td>Tiến hành tích hợp đồng bộ mã nguồn (Merge) từ JavaFX vào Backend; kiểm thử hộp đen chức năng trả giá; xử lý xung đột mã nguồn, tối ưu SQLite và xuất báo cáo kỹ thuật.</td>
+                                <td style="color: var(--blue-light); font-weight: 500;">
+                                    • Stable System Package<br>
+                                    • Integrated SQLite DB<br>
+                                    • Technical Report Doc
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- KHỐI 4: THÁCH THỨC VÀ BÀI HỌC -->
+            <div class="content-section-box">
+                <h3 class="section-title"><i class="fas fa-graduation-cap"></i> Giải quyết thách thức & Bài học quản trị cốt lõi</h3>
+                <ul class="review-list">
+                    <li class="review-item">
+                        <i class="fas fa-circle-check"></i>
+                        <b>Giải phóng điểm nghẽn tiến độ (Bottleneck Mitigation):</b> 
+                        Khi phát hiện thành viên phụ trách SQLite gặp sự cố qua hạn chót hiển thị trên Trello, tôi đã chủ động điều phối lại, chuyển bớt phần giao diện và trực tiếp hỗ trợ giải quyết hơn 30% khối lượng mã nguồn xử lý DB phức tạp, đưa dự án về quỹ đạo an toàn.
+                    </li>
+                    <li class="review-item">
+                        <i class="fas fa-circle-check"></i>
+                        <b>Kiểm soát triệt để hiện tượng bất đối xứng thông tin:</b> 
+                        Khi làm việc từ xa, việc trao đổi mã nguồn lỗi qua chat chữ rất dễ gây hiểu lầm. Tôi thiết lập quy tắc họp nhanh Voice 15 phút định kỳ, bắt buộc Share-screen trực quan hóa dòng code lỗi để toàn đội xử lý triệt để bất đồng thông tin.
+                    </li>
+                    <li class="review-item">
+                        <i class="fas fa-circle-check"></i>
+                        <b>Bài học đúc kết về quản trị:</b> 
+                        Công cụ số dù tối tân cũng chỉ đóng vai trò trợ lực. Trục cốt lõi quyết định sự thành bại của một dự án công nghệ nằm ở tư duy chủ động linh hoạt, tính kỷ luật tự giác nghiêm minh của tập thể và tinh thần trách nhiệm của người dẫn đầu.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- NÚT BẤM -->
+            <div class="btn-container">
+                <a href="duanthuchanh.html" class="btn-base btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại danh sách
+                </a>
+                <a href="https://docs.google.com/document/d/1DXB78e5AmVgo3ugbp6yzq5UFrBK9ltAt/edit" class="btn-base btn-primary">
+                    <i class="fas fa-file-word"></i> Tải báo cáo (.Docx)
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
